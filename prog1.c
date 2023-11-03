@@ -13,30 +13,61 @@ int main(){
     //取得、再出力パート
     for(i=0;(i<1250000)&&((ch = fgetc(fp1))!=EOF);i++){
         a[i]=ch;
-        if(((a[i]>=65)&&(a[i]<=90))||((a[i]>=97)&&(a[i]<=122))||(a[i]==32)||(a[i]==10)){
+        if(((a[i]>=65)&&(a[i]<=90))||((a[i]>=97)&&(a[i]<=122))||(a[i]==10)){
             printf("%c",a[i]);
-        }
-        else if(a[i]==195){
+        }else if(a[i]==32){
+            if((a[i-1]!=32)&&(a[i-1]!=10)){
+                printf(" ");
+            }
+        }else if(a[i]==-61){
             if((ch=fgetc(fp1))!=EOF){
                 i++;a[i]=ch;
-                printf("%c%c",195,a[i]);
+                printf("%c%c",-61,a[i]);
             }else{
                 break;
             }
-        }
-        else if(a[i]==266){
-            if(((a[++i]=fgetc(fp1))!=EOF)&&((a[++i]=fgetc(fp1))!=EOF)){
-                if((a[i-1]==128)&&(a[i]==153)){
-                    printf("%c%c%c",266,128,153);
+        }else if(a[i]==-59){
+            if((ch=fgetc(fp1))!=EOF){
+                i++;a[i]=ch;
+                printf("%c%c",-61,a[i]);
+            }else{
+                break;
+            }
+        }else if(a[i]==-30){
+            if((ch=fgetc(fp1))!=EOF){
+                i++;a[i]=ch;
+                if((int)a[i]==-128){
+                    if((ch=fgetc(fp1))!=EOF){
+                        i++;a[i]=ch;
+                        if(a[i]==-103){
+                            printf("%c%c%c",a[i-2],a[i-1],a[i]);
+                        }else{
+                            a[i]=32;
+                            if((a[i-3]!=32)&&(a[i-3]!=10)){
+                                printf(" ");
+                            }
+                        }
+                    }else{
+                        break;
+                    }
                 }else{
-                    printf(" ");
+                    if((ch=fgetc(fp1))!=EOF){
+                        i++;a[i]=32;
+                        if((a[i-2]!=32)&&(a[i-2]!=10)){
+                            printf(" ");
+                        }
+                    }else{
+                        break;
+                    }
                 }
             }else{
                 break;
             }
-        }
-        else{
-            printf(" ");
+        }else{
+            a[i]=32;
+            if((a[i-1]!=32)&&(a[i-1]!=10)){
+                printf(" ");
+            }
         }
     }
     a[i]='\0';printf("%c",a[i]);

@@ -29,7 +29,7 @@ int main(){
         }else if(a[i]==-59){
             if((ch=fgetc(fp1))!=EOF){
                 i++;a[i]=ch;
-                printf("%c%c",-61,a[i]);
+                printf("%c%c",-59,a[i]);
             }else{
                 break;
             }
@@ -70,7 +70,7 @@ int main(){
             }
         }
     }
-    a[i]='\0';printf("%c",a[i]);
+    a[i]='\0';
 
     fclose(fp1);
     

@@ -59,28 +59,28 @@ int main(){
         }
     }
 
-    printf("順位,登場回数,登場率,文字\n");
+    printf("順位,登場回数,登場率,文字番号,文字\n");
     for(i=0;i<130;i++){
         if(rnk[i]==0){
-            printf("%d,%ld,%lf,改行\n",i,first[rnk[i]].num,(float)first[rnk[i]].num/(float)num_letter);
+            printf("%d,%ld,%lf,%d,改行\n",i,first[rnk[i]].num,(float)first[rnk[i]].num/(float)num_letter,rnk[i]);
         }
         if(rnk[i]==1){
-            printf("%d,%ld,%lf,空白\n",i,first[rnk[i]].num,(float)first[rnk[i]].num/(float)num_letter);
+            printf("%d,%ld,%lf,%d,空白\n",i,first[rnk[i]].num,(float)first[rnk[i]].num/(float)num_letter,rnk[i]);
         }
         if((rnk[i]>=2)&&(rnk[i]<=27)){
-            printf("%d,%ld,%lf,%c\n",i,first[rnk[i]].num,(float)first[rnk[i]].num/(float)num_letter,rnk[i]+63);
+            printf("%d,%ld,%lf,%d,%c\n",i,first[rnk[i]].num,(float)first[rnk[i]].num/(float)num_letter,rnk[i],rnk[i]+63);
         }
         if((rnk[i]>=28)&&(rnk[i]<=53)){
-            printf("%d,%ld,%lf,%c\n",i,first[rnk[i]].num,(float)first[rnk[i]].num/(float)num_letter,rnk[i]+69);
+            printf("%d,%ld,%lf,%d,%c\n",i,first[rnk[i]].num,(float)first[rnk[i]].num/(float)num_letter,rnk[i],rnk[i]+69);
         }
         if((rnk[i]>=54)&&(rnk[i]<=117)){
-          printf("%d,%ld,%lf,%c%c\n",i,first[rnk[i]].num,(float)first[rnk[i]].num/(float)num_letter,-61,rnk[i]-182);  
+          printf("%d,%ld,%lf,%d,%c%c\n",i,first[rnk[i]].num,(float)first[rnk[i]].num/(float)num_letter,rnk[i],-61,rnk[i]-182);  
         }
         if((rnk[i]==118)||(rnk[i]==119)){
-          printf("%d,%ld,%lf,%c%c\n",i,first[rnk[i]].num,(float)first[rnk[i]].num/(float)num_letter,-59,rnk[i]-228);  
+          printf("%d,%ld,%lf,%d,%c%c\n",i,first[rnk[i]].num,(float)first[rnk[i]].num/(float)num_letter,rnk[i],-59,rnk[i]-228);  
         }
         if(rnk[i]==120){
-          printf("%d,%ld,%lf,%c%c%c\n",i,first[rnk[i]].num,(float)first[rnk[i]].num/(float)num_letter,-30,128,153);  
+          printf("%d,%ld,%lf,%d,%c%c%c\n",i,first[rnk[i]].num,(float)first[rnk[i]].num/(float)num_letter,rnk[i],-30,128,153);  
         }
     }
 

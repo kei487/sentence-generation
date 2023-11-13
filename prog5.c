@@ -50,8 +50,8 @@ int main(){
         }
         tmp=j;
     }
-
-    for(i=0;i<10000;i++){
+    printf("%ld\n",mam);
+    for(i=0;i<100;i++){
         print_char(let_list[rand()%mam]);
     }puts(" ");
 

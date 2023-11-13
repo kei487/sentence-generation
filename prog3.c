@@ -101,7 +101,7 @@ int main(){
         }
     }
     printf("順位,登場回数,登場率,文字番号組,文字組\n");
-    for(i=0;i<1191;i++){
+    for(i=0;i<1200;i++){
         printf("%d,%ld,%lf,%d %d,",i,second[rnk[i]/130].first[rnk[i]%130].num,(float)second[rnk[i]/130].first[rnk[i]%130].num/(float)num_letter,rnk[i]/130,rnk[i]%130);print_char(rnk[i]/130);print_char(rnk[i]%130);printf("\n");
     }
 

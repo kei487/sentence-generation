@@ -20,10 +20,9 @@ int print_char(int n);
 
 
 int main(){
-    puts("non statement error");
     FILE *fp;
     char c1[10];
-    int i,j,max_let,tmp,a1,a0,k[42]={0},atmp[42]={0};
+    int i,j,max_let,tmp,a1,a0,loop,flag,k[42]={0},atmp[42]={0};
     long int mam=0;
     struct let_list list[42];
     struct let_data data[DATA_NUM];
@@ -49,34 +48,22 @@ int main(){
 
     
     for(i=0;i<max_let;i++){
-        for(j=0;j<42;j++){
-            //printf("%d::%d:%ld\n",i,j,list[j].mam);
-        }
-        if(data[i].id[0]==2){
-            //printf("%d:%ld %ld %d\n",i,list[2].mam,data[i].freq,k[data[i].id[0]]);
-        }
         for( ;k[data[i].id[0]]<atmp[data[i].id[0]]+data[i].freq/10; k[data[i].id[0]]++){
             list[data[i].id[0]].letter[k[data[i].id[0]]]=data[i].id[1];
-            //if(i==3) printf("%d:%ld %ld %d\n",i,list[1].mam,data[i].freq,k[data[i].id[0]]);
         }
         list[data[i].id[0]].mam+=data[i].freq/10;
         atmp[data[i].id[0]]=k[data[i].id[0]];
-    }printf("sum:%ld\n",list[2].mam);
+    }
 
     for(i=0;i<42;i++){
         mam+=list[i].mam;
-        //printf("%ld\n",list[i].mam);
     }
-    printf("%ld\n",mam);
-    //ここ以下
-    int loop=rand()%mam;printf("%ld %d\n",mam,loop);
-    int flag=0;
-    j=0;tmp=0;
+
+    loop=rand()%mam;
+    flag=0;j=0;tmp=0;
     for(i=0;i<121;i++){
-        printf("i");
         for( ;j<tmp+list[i].mam;j++){
             if(j==loop){
-                printf("%d,%d\n",i,list[i].letter[j-tmp]);
                 print_char(i);
                 print_char(list[i].letter[j-tmp]);
                 a0=list[i].letter[j-tmp];

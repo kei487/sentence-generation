@@ -4,6 +4,7 @@
 #include <unistd.h>
 
 #define DATA_NUM 760
+#define NUM_CODE 42
 
 struct let_data
 {
@@ -22,13 +23,13 @@ int print_char(int n);
 int main(){
     FILE *fp;
     char c1[10];
-    int i,j,max_let,tmp,a1,a0,loop,flag,k[42]={0},atmp[42]={0};
+    int i,j,max_let,tmp,a1,a0,loop,flag,k[NUM_CODE]={0},atmp[NUM_CODE]={0};
     long int mam=0;
-    struct let_list list[42];
+    struct let_list list[NUM_CODE];
     struct let_data data[DATA_NUM];
     char let[8];double prob;int rank;
 
-    for(i=0;i<42;i++){
+    for(i=0;i<NUM_CODE;i++){
         list[i].mam=0;
     }
     
@@ -55,13 +56,13 @@ int main(){
         atmp[data[i].id[0]]=k[data[i].id[0]];
     }
 
-    for(i=0;i<42;i++){
+    for(i=0;i<NUM_CODE;i++){
         mam+=list[i].mam;
     }
 
     loop=rand()%mam;
     flag=0;j=0;tmp=0;
-    for(i=0;i<42;i++){
+    for(i=0;i<NUM_CODE;i++){
         for( ;j<tmp+list[i].mam;j++){
             if(j==loop){
                 print_char(i);

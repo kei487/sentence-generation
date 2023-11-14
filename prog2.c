@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #define MAX_NUM 1250000
+#define NUM_CODE 130
 #define swap(x,y) {long int tmp=x;x=y;y=tmp;}
 
 struct freq_letter
@@ -14,10 +15,10 @@ int main(){
     FILE *fp1;
     char a[1250000]={0};
     int i,j,ch,num_letter;
-    struct freq_letter first[130];
-    int rnk[130];
+    struct freq_letter first[NUM_CODE];
+    int rnk[NUM_CODE];
 
-    for(i=0;i<130;i++){
+    for(i=0;i<NUM_CODE;i++){
         first[i].num=0;
         rnk[i]=i;
     }
@@ -51,7 +52,7 @@ int main(){
     }
     a[i]='\0';num_letter=i;
 
-    for(i=0;i<130;i++){
+    for(i=0;i<NUM_CODE;i++){
         for(j=129;j>i;j--){
             if(first[rnk[j]].num > first[rnk[j-1]].num){
                 swap(rnk[j],rnk[j-1]);
@@ -60,7 +61,7 @@ int main(){
     }
 
     printf("順位,登場回数,登場率,文字番号,文字\n");
-    for(i=0;i<130;i++){
+    for(i=0;i<NUM_CODE;i++){
         if(rnk[i]==0){
             printf("%d,%ld,%lf,%d,改行\n",i,first[rnk[i]].num,(float)first[rnk[i]].num/(float)num_letter,rnk[i]);
         }

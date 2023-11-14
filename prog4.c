@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #define MAX_NUM 1250000
+#define NUM_CODE 42
 #define swap(x,y) {long int tmp=x;x=y;y=tmp;}
 
 struct freq_one
@@ -10,11 +11,11 @@ struct freq_one
 };
 struct freq_two
 {
-    struct freq_one first[42];
+    struct freq_one first[NUM_CODE];
 };
 struct freq_three
 {
-    struct freq_two second[42];
+    struct freq_two second[NUM_CODE];
 };
 
 
@@ -26,14 +27,14 @@ int main(){
     FILE *fp1;
     int a[3]={0};
     int i,j,k,num_letter,tmp;
-    struct freq_three third[42];
-    int rnk[42*42*42];
+    struct freq_three third[NUM_CODE];
+    int rnk[NUM_CODE*NUM_CODE*NUM_CODE];
     
-    for(i=0;i<42;i++){
-        for(j=0;j<42;j++){
-            for(k=0;k<42;k++){
+    for(i=0;i<NUM_CODE;i++){
+        for(j=0;j<NUM_CODE;j++){
+            for(k=0;k<NUM_CODE;k++){
                 third[i].second[j].first[k].num=0;
-                tmp=42*42*i + 42*j + k;
+                tmp=NUM_CODE*NUM_CODE*i + NUM_CODE*j + k;
                 rnk[tmp]=tmp;
             }
         }
@@ -53,17 +54,17 @@ int main(){
     }
     num_letter=i;
     
-    for(i=0;i<42*42*42;i++){
-        for(j=42*42*42-1;j>i;j--){
-            if(third[rnk[j]/(42*42)].second[(rnk[j]/42)-42*(rnk[j]/(42*42))].first[rnk[j]%42].num > third[rnk[j-1]/(42*42)].second[(rnk[j-1]/42)-42*(rnk[j-1]/(42*42))].first[rnk[j-1]%42].num){
+    for(i=0;i<NUM_CODE*NUM_CODE*NUM_CODE;i++){
+        for(j=NUM_CODE*NUM_CODE*NUM_CODE-1;j>i;j--){
+            if(third[rnk[j]/(NUM_CODE*NUM_CODE)].second[(rnk[j]/NUM_CODE)-NUM_CODE*(rnk[j]/(NUM_CODE*NUM_CODE))].first[rnk[j]%NUM_CODE].num > third[rnk[j-1]/(NUM_CODE*NUM_CODE)].second[(rnk[j-1]/NUM_CODE)-NUM_CODE*(rnk[j-1]/(NUM_CODE*NUM_CODE))].first[rnk[j-1]%NUM_CODE].num){
                 swap(rnk[j],rnk[j-1]);
             }
         }
     }
     
     printf("順位,登場回数,登場率,文字番号組,文字組\n");
-    for(i=0;i<42*42*42;i++){
-        printf("%d,%ld,%lf,%d %d %d,",i,third[rnk[i]/(42*42)].second[(rnk[i]/42)-42*(rnk[i]/(42*42))].first[rnk[i]%42].num,(float)third[rnk[i]/(42*42)].second[(rnk[i]/42)-42*(rnk[i]/(42*42))].first[rnk[i]%42].num/(float)num_letter,rnk[i]/(42*42),(rnk[i]/42)-42*(rnk[i]/(42*42)),rnk[i]%42);print_char(rnk[i]/(42*42));print_char((rnk[i]/42)-42*(rnk[i]/(42*42)));print_char(rnk[i]%42);printf("\n");
+    for(i=0;i<NUM_CODE*NUM_CODE*NUM_CODE;i++){
+        printf("%d,%ld,%lf,%d %d %d,",i,third[rnk[i]/(NUM_CODE*NUM_CODE)].second[(rnk[i]/NUM_CODE)-NUM_CODE*(rnk[i]/(NUM_CODE*NUM_CODE))].first[rnk[i]%NUM_CODE].num,(float)third[rnk[i]/(NUM_CODE*NUM_CODE)].second[(rnk[i]/NUM_CODE)-NUM_CODE*(rnk[i]/(NUM_CODE*NUM_CODE))].first[rnk[i]%NUM_CODE].num/(float)num_letter,rnk[i]/(NUM_CODE*NUM_CODE),(rnk[i]/NUM_CODE)-NUM_CODE*(rnk[i]/(NUM_CODE*NUM_CODE)),rnk[i]%NUM_CODE);print_char(rnk[i]/(NUM_CODE*NUM_CODE));print_char((rnk[i]/NUM_CODE)-NUM_CODE*(rnk[i]/(NUM_CODE*NUM_CODE)));print_char(rnk[i]%NUM_CODE);printf("\n");
     }
 
     fclose(fp1);

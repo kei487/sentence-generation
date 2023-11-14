@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #define MAX_NUM 1250000
+#define NUM_CODE 42
 #define swap(x,y) {long int tmp=x;x=y;y=tmp;}
 
 struct freq_one
@@ -10,7 +11,7 @@ struct freq_one
 };
 struct freq_two
 {
-    struct freq_one first[41];
+    struct freq_one first[NUM_CODE];
 };
 
 int indx(FILE *fp1,char n){
@@ -119,13 +120,13 @@ int main(){
     char c0,c1;
     int a[MAX_NUM]={0};
     int i,j,ch,num_letter;
-    struct freq_two second[41];
-    int rnk[41*41];
+    struct freq_two second[NUM_CODE];
+    int rnk[NUM_CODE*NUM_CODE];
 
-    for(i=0;i<41;i++){
-        for(j=0;j<41;j++){
+    for(i=0;i<NUM_CODE;i++){
+        for(j=0;j<NUM_CODE;j++){
             second[i].first[j].num=0;
-            rnk[41*i+j]=41*i+j;
+            rnk[NUM_CODE*i+j]=NUM_CODE*i+j;
         }
     }
 
@@ -147,16 +148,16 @@ int main(){
     }
     num_letter=i;
     
-    for(i=0;i<41*41;i++){
-        for(j=41*41-1;j>i;j--){
-            if(second[rnk[j]/41].first[rnk[j]%41].num > second[rnk[j-1]/41].first[rnk[j-1]%41].num){
+    for(i=0;i<NUM_CODE*NUM_CODE;i++){
+        for(j=NUM_CODE*NUM_CODE-1;j>i;j--){
+            if(second[rnk[j]/NUM_CODE].first[rnk[j]%NUM_CODE].num > second[rnk[j-1]/NUM_CODE].first[rnk[j-1]%NUM_CODE].num){
                 swap(rnk[j],rnk[j-1]);
             }
         }
     }
     printf("順位,登場回数,登場率,文字番号組,文字組\n");
-    for(i=0;i<41*41;i++){
-        printf("%d,%ld,%lf,%d %d,",i,second[rnk[i]/41].first[rnk[i]%41].num,(float)second[rnk[i]/41].first[rnk[i]%41].num/(float)num_letter,rnk[i]/41,rnk[i]%41);print_char(rnk[i]/41);print_char(rnk[i]%41);printf("\n");
+    for(i=0;i<NUM_CODE*NUM_CODE;i++){
+        printf("%d,%ld,%lf,%d %d,",i,second[rnk[i]/NUM_CODE].first[rnk[i]%NUM_CODE].num,(float)second[rnk[i]/NUM_CODE].first[rnk[i]%NUM_CODE].num/(float)num_letter,rnk[i]/NUM_CODE,rnk[i]%NUM_CODE);print_char(rnk[i]/NUM_CODE);print_char(rnk[i]%NUM_CODE);printf("\n");
     }
 
     fclose(fp1);

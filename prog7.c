@@ -3,12 +3,12 @@
 #include <time.h>
 #include <unistd.h>
 
-#define DATA_NUM 760
+#define DATA_NUM 6000
 
 struct let_data
 {
     long int freq;
-    int id[2];
+    int id[3];
 };
 struct let_list
 {
@@ -18,23 +18,29 @@ struct let_list
 
 int print_char(int n);
 
+struct let_list list[42][42];
+struct let_data data[DATA_NUM];
 
 int main(){
-    FILE *fp;
+    FILE *fp,*fp2;
     char c1[10];
-    int i,j,max_let,tmp,a1,a0,loop,flag,k[42]={0},atmp[42]={0};
+    int i,j,max_let,tmp,a2,a1,a0,loop,flag,k[42][42]={0},atmp[42][42]={0};
     long int mam=0;
-    struct let_list list[42];
-    struct let_data data[DATA_NUM];
     char let[8];double prob;int rank;
 
     for(i=0;i<42;i++){
-        list[i].mam=0;
+        for(j=0;j<42;j++){
+            list[i][j].mam=0;
+        }
     }
-    
+
     srand((unsigned int)time(NULL)); 
 
-    if((fp=fopen("rslprog3n","r")) == NULL){
+    if((fp=fopen("rslprog4","r")) == NULL){
+		printf("Can not open txte file\n");
+		return -1;
+	}
+    if((fp2=fopen("rslprog7n","w")) == NULL){
 		printf("Can not open txte file\n");
 		return -1;
 	}
@@ -42,42 +48,53 @@ int main(){
     fscanf(fp,"%s,%s,%s,%s,%s",c1,c1,c1,c1,c1);
     i=0;
     do{
-        fscanf(fp,"%d,%ld,%lf,%d %d,%s",&rank,&data[i].freq,&prob,&data[i].id[0],&data[i].id[1],let);
-    }while((data[i++].freq!=0)&&(i<DATA_NUM)); 
+        fscanf(fp,"%d,%ld,%lf,%d %d %d,%s",&rank,&data[i].freq,&prob,&data[i].id[0],&data[i].id[1],&data[i].id[2],let);
+    }while((data[i++].freq!=0));
     max_let=i;
 
     
     for(i=0;i<max_let;i++){
-        for( ;k[data[i].id[0]]<atmp[data[i].id[0]]+data[i].freq/10; k[data[i].id[0]]++){
-            list[data[i].id[0]].letter[k[data[i].id[0]]]=data[i].id[1];
+        for( ;k[data[i].id[0]][data[i].id[1]]<atmp[data[i].id[0]][data[i].id[1]]+data[i].freq/10; k[data[i].id[0]][data[i].id[1]]++){
+            list[data[i].id[0]][data[i].id[1]].letter[k[data[i].id[0]][data[i].id[1]]]=data[i].id[2];
         }
-        list[data[i].id[0]].mam+=data[i].freq/10;
-        atmp[data[i].id[0]]=k[data[i].id[0]];
+        list[data[i].id[0]][data[i].id[1]].mam+=data[i].freq/10;
+        atmp[data[i].id[0]][data[i].id[1]]=k[data[i].id[0]][data[i].id[1]];
     }
 
     for(i=0;i<42;i++){
-        mam+=list[i].mam;
+        for(j=0;j<42;j++){
+            mam+=list[i][j].mam;
+        }
     }
 
     loop=rand()%mam;
     flag=0;j=0;tmp=0;
     for(i=0;i<42;i++){
-        for( ;j<tmp+list[i].mam;j++){
-            if(j==loop){
-                print_char(i);
-                print_char(list[i].letter[j-tmp]);
-                a0=list[i].letter[j-tmp];
-                flag=1;
-                break;
+        for(int h=0;h<42;h++){
+            for( ;j<tmp+list[i][h].mam;j++){
+                if(j==loop){
+                    print_char(i);
+                    print_char(h);
+                    print_char(list[i][h].letter[j-tmp]);
+                    a0=h;
+                    a1=list[i][h].letter[j-tmp];
+                    flag=1;
+                    break;
+                }
             }
+            if(flag) break;
+            tmp=j;
         }
         if(flag) break;
-        tmp=j;
     }
+    
     for(i=0;i<10000;i++){
-        a1 = rand() % list[a0].mam;
-        print_char(list[a0].letter[a1]);
-        a0=list[a0].letter[a1];
+        a2 = rand() % list[a0][a1].mam;
+        tmp=list[a0][a1].letter[a2];
+        print_char(tmp);
+        fprintf(fp2,"%d\n",i);
+        a0=a1;
+        a1=tmp;
     }printf("\n \n \n");
 
     fclose(fp);

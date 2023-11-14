@@ -7,7 +7,7 @@ int main(){
     int i,ch;
 
     if((fp1 = fopen("franceis.txt","r"))==NULL){
-		fprintf(stderr, "Can not open txte file\n");
+		printf("Can not open txte file\n");
 		return -1;
 	}
     //取得、再出力パート

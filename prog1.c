@@ -6,7 +6,7 @@ int main(){
     char a[1250000]={0};
     int i,ch;
 
-    if((fp1 = fopen("franceis.txt","r"))==NULL){
+    if((fp1 = fopen("francais.txt","r"))==NULL){
 		printf("Can not open txte file\n");
 		return -1;
 	}

@@ -40,10 +40,6 @@ int main(){
 		printf("Can not open txte file\n");
 		return -1;
 	}
-    if((fp2=fopen("rslprog7n","w")) == NULL){
-		printf("Can not open txte file\n");
-		return -1;
-	}
 
     fscanf(fp,"%s,%s,%s,%s,%s",c1,c1,c1,c1,c1);
     i=0;
@@ -92,7 +88,6 @@ int main(){
         a2 = rand() % list[a0][a1].mam;
         tmp=list[a0][a1].letter[a2];
         print_char(tmp);
-        fprintf(fp2,"%d\n",i);
         a0=a1;
         a1=tmp;
     }printf("\n \n \n");
